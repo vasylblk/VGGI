@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>PA#1 - Sievert's Surface</title>
+    <style>
+        body {
+            background-color: #222222;
+            color: #eeeeee;
+            font-family: sans-serif;
+            text-align: center;
+        }
+        #canvas-holder {
+            margin: 20px auto;
+        }
+    </style>
+
+    <script src="./Utils/trackball-rotator.js"></script>
+    <script src="./Utils/m4.js"></script>
+    <script src="./shader.gpu"></script>
+    <script src="./Model.js"></script>
+    <script src="./main.js"></script>
+</head>
+<body onload="init()">
+
+    <h2>Sievert's Surface Wireframe</h2>
+
+    <div id="canvas-holder">
+       <canvas width="700" height="700" id="webglcanvas"></canvas>
+    </div>
+
+</body>
+</html>
