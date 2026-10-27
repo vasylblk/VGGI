@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>PA#2 - Sievert's Surface with Phong Shading</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #eeeeee;
+            font-family: sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        #controls {
+            margin: 10px auto;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        canvas {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+            border-radius: 4px;
+        }
+    </style>
+
+    <script src="./Utils/trackball-rotator.js"></script>
+    <script src="./Utils/m4.js"></script>
+    <script src="./shader.gpu"></script>
+    <script src="./Model.js"></script>
+    <script src="./main.js"></script>
+</head>
+<body onload="init()">
+
+    <h2>PA#2: Sievert's Surface</h2>
+    
+    <div id="controls">
+        <div class="control-group">
+            <label for="uSteps">U Granularity:</label>
+            <input type="range" id="uSteps" min="15" max="100" value="50">
+            <span id="uVal">40</span>
+        </div>
+        <div class="control-group">
+            <label for="vSteps">V Granularity:</label>
+            <input type="range" id="vSteps" min="15" max="100" value="50">
+            <span id="vVal">40</span>
+        </div>
+    </div>
+
+    <div id="canvas-holder">
+        <canvas width="650" height="650" id="webglcanvas"></canvas>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+// Vertex shader
+const vertexShaderSource = `
+attribute vec3 vertex;
+attribute vec3 normal;
+
+uniform mat4 ModelViewProjectionMatrix;
+uniform mat4 ModelViewMatrix;
+uniform mat3 NormalMatrix;
+
+varying vec3 vEyeCoords;
+varying vec3 vNormal;
+
+void main() {
+    vec4 eyeVertex = ModelViewMatrix * vec4(vertex, 1.0);
+    vEyeCoords = eyeVertex.xyz;
+    vNormal = normalize(NormalMatrix * normal);
+    gl_Position = ModelViewProjectionMatrix * vec4(vertex, 1.0);
+}`;
+
+// Fragment shader
+const fragmentShaderSource = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+   precision highp float;
+#else
+   precision mediump float;
+#endif
+
+uniform vec3 lightPosition;
+uniform vec4 color;
+
+varying vec3 vEyeCoords;
+varying vec3 vNormal;
+
+void main() {
+    vec3 N = normalize(vNormal);
+    vec3 L = normalize(lightPosition - vEyeCoords);
+    vec3 V = vec3(0.0, 0.0, 1.0);
+    vec3 R = reflect(-L, N);
+
+    // Коефіцієнти моделі освітлення
+    vec3 ambientColor = vec3(0.15, 0.15, 0.15);
+    vec3 lightColor = vec3(1.0, 1.0, 1.0);
+    vec3 matDiffuse = color.rgb;
+    vec3 matSpecular = vec3(0.9, 0.9, 0.9);
+    float shininess = 32.0;
+
+    // Ambient
+    vec3 ambient = ambientColor * matDiffuse;
+
+    // Diffuse
+    float diffFactor = max(dot(N, L), 0.0);
+    vec3 diffuse = diffFactor * lightColor * matDiffuse;
+
+    // Specular (Phong)
+    float specFactor = 0.0;
+    if (diffFactor > 0.0) {
+        specFactor = pow(max(dot(R, V), 0.0), shininess);
+    }
+    vec3 specular = specFactor * lightColor * matSpecular;
+
+    vec3 finalColor = ambient + diffuse + specular;
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
