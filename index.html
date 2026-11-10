@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Sievert's Surface</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #eeeeee;
+            font-family: sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 15px;
+        }
+        #controls, #map-controls {
+            margin: 10px auto;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        canvas {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+        }
+    </style>
+
+    <script src="./Utils/trackball-rotator.js"></script>
+    <script src="./Utils/m4.js"></script>
+    <script src="./TextureHandler.js"></script>
+    <script src="./shader.gpu"></script>
+    <script src="./Model.js"></script>
+    <script src="./main.js"></script>
+</head>
+<body onload="init()">
+
+    <h2>Sievert's Surface</h2>
+
+    <div id="controls">
+        <div>
+            <label for="uSegments">U Segments:</label>
+            <input type="range" id="uSegments" min="15" max="100" value="60">
+            <span id="uSegments-value">60</span>
+        </div>
+        <div>
+            <label for="vSegments">V Segments:</label>
+            <input type="range" id="vSegments" min="15" max="100" value="60">
+            <span id="vSegments-value">60</span>
+        </div>
+    </div>
+
+    <div id="canvas-holder">
+        <canvas width="650" height="650" id="webglcanvas"></canvas>
+    </div>
+
+    <div id="map-controls">
+        <label><input type="checkbox" id="diffuseMap" checked> Diffuse Map</label>
+        <label><input type="checkbox" id="specularMap" checked> Specular Map</label>
+        <label><input type="checkbox" id="normalMap" checked> Normal Map</label>
+    </div>
+
+</body>
+</html>
